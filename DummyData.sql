@@ -44,5 +44,5 @@ SELECT * FROM Courses;
 SELECT * FROM Semester ORDER BY SemesterID;
 SELECT * FROM CourseSection ORDER BY SemesterID;
 SELECT * FROM InCourse;
-SELECT * FROM rating;
+SELECT * FROM CourseRating;
 */
