@@ -5,13 +5,13 @@ USE CourseMetric;
 
 CREATE TABLE UserTypes (
 	UserTypeID int auto_increment,
-    UserType VARCHAR(20) NOT NULL,
+    UserType VARCHAR(20) NOT NULL UNIQUE,
     PRIMARY KEY(UserTypeID)
 );
 
 CREATE TABLE Users (
 	UserID int auto_increment,
-    UserName VARCHAR(20) NOT NULL,
+    UserName VARCHAR(20) NOT NULL UNIQUE,
     LoginPassword VARCHAR(64) NOT NULL,
     FullName VARCHAR(50),
     UserTypeID int,
@@ -21,13 +21,13 @@ CREATE TABLE Users (
 
 CREATE TABLE Courses (
 	CourseID VARCHAR(10),
-    CourseName VARCHAR(30) NOT NULL,
+    CourseName VARCHAR(40) NOT NULL,
     PRIMARY KEY(CourseID)
 );
 
 CREATE TABLE Semester(
 	SemesterID int auto_increment,
-	Semester VARCHAR(20) NOT NULL,
+	Semester VARCHAR(20) NOT NULL UNIQUE,
 	PRIMARY KEY(SemesterID)
 );
 
@@ -55,8 +55,13 @@ CREATE TABLE CourseRating(
 	CourseID VARCHAR(10),
     SemesterID int NOT NULL,
 	SectionName VARCHAR(2),
-    Rating int CHECK(Rating BETWEEN 1 AND 10),
-    Notes VARCHAR(150),
+    Rating VARCHAR(10) CHECK(Rating IN ('Very Good', 'Good', 'Average', 'Bad', 'Very Bad')),
+    Notes VARCHAR(150) DEFAULT '',
     PRIMARY KEY(RatingID),
     FOREIGN KEY (CourseID, SectionName, SemesterID) REFERENCES CourseSection(CourseID, SectionName, SemesterID)
 );
+
+CREATE VIEW Rating AS 
+	SELECT CourseID, SemesterID, SectionName, Rating, Notes
+    FROM CourseRating
+    WHERE Rating IN ('Very Good', 'Good', 'Average', 'Bad', 'Very Bad') WITH CHECK OPTION;
