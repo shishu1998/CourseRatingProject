@@ -51,17 +51,17 @@ CREATE TABLE InCourse(
 );
 
 CREATE TABLE CourseRating(
-	RatingID int auto_increment,
+	UserHash VARCHAR(64),
 	CourseID VARCHAR(10),
     SemesterID int NOT NULL,
 	SectionName VARCHAR(2),
     Rating VARCHAR(10) CHECK(Rating IN ('Very Good', 'Good', 'Average', 'Bad', 'Very Bad')),
     Notes VARCHAR(150) DEFAULT '',
-    PRIMARY KEY(RatingID),
+    PRIMARY KEY(UserHash, CourseID, SemesterID, SectionName),
     FOREIGN KEY (CourseID, SectionName, SemesterID) REFERENCES CourseSection(CourseID, SectionName, SemesterID)
 );
 
 CREATE VIEW Rating AS 
-	SELECT CourseID, SemesterID, SectionName, Rating, Notes
+	SELECT UserHash, CourseID, SemesterID, SectionName, Rating, Notes
     FROM CourseRating
     WHERE Rating IN ('Very Good', 'Good', 'Average', 'Bad', 'Very Bad') WITH CHECK OPTION;
