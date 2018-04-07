@@ -26,16 +26,6 @@ INSERT INTO InCourse values
 ('CS-UY 2413', 'A1', 1, 2),
 ('CS-UY 3083', '', 2, 3);
 
-Insert INTO Rating VALUES
-('CS-UY 2214', 1, 'A', 'Very Good', 'Great Class'),
-('CS-UY 2214', 1, 'A', 'Good', 'Lecture a bit boring'),
-('CS-UY 2413', 1, 'A1', 'Average', 'Meh'),
-('CS-UY 2413', 1, 'A1', 'Bad', 'This class is awful'),
-('CS-UY 2413', 1, 'A1', 'Very Bad', 'I would drop out in a heartbeat'),
-('CS-UY 3083', 2, '', 'Good', ''),
-('CS-UY 3083', 3, '', 'Good', ''),
-('CS-UY 3083', 3, '', 'Average', '');
-
 -- Check that things have been inserted correctly
 /*
 SELECT * FROM UserTypes;
@@ -44,5 +34,4 @@ SELECT * FROM Courses;
 SELECT * FROM Semester ORDER BY SemesterID;
 SELECT * FROM CourseSection ORDER BY SemesterID;
 SELECT * FROM InCourse;
-SELECT * FROM CourseRating;
 */
