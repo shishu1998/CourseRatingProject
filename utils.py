@@ -20,16 +20,6 @@ def ValidateUser(username, password):
     finally:
         connection.close()
 
-def GetCoursesByUser(id):
-    connection = DatabaseConnect()
-    try:
-        with connection.cursor() as cursor:
-            cursor.callproc("GetCoursesByUser", [id])
-            result = cursor.fetchall()
-            return result
-    finally:
-        connection.close()
-
 def GetCoursesByUsername(UName):
     connection = DatabaseConnect()
     try:
