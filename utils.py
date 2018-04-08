@@ -25,7 +25,18 @@ def GetCoursesByUsername(UName):
     try:
         with connection.cursor() as cursor:
             cursor.callproc("GetCoursesByUsername", [UName])
-            result = cursor.fetchall()
+            result = list(map((lambda x: (x['CourseID'],x['SectionName'], GetSemesterName(x['SemesterID']))), cursor.fetchall()))
+            return result
+    finally:
+        connection.close()
+
+def GetSemesterName(semesterID):
+    connection = DatabaseConnect()
+    try:
+        with connection.cursor() as cursor:
+            sql = "SELECT Semester from Semester WHERE SemesterID =" + str(semesterID) +";"
+            cursor.execute(sql)
+            result = cursor.fetchone()['Semester']
             return result
     finally:
         connection.close()
@@ -66,7 +77,9 @@ def AddRating(UName, CourseID, Sem, Section, Rate, Note):
 print(ValidateUser('rc123','P@ssw0rd'))
 print(ValidateUser('rc123','lmao'))
 print(GetCoursesByUsername('rc123'))
+print(GetCoursesByUsername('rc123')[0][0])
 print(GetCoursesByUsername('thisdoesntexist'))
+print (GetSemesterName(1))
 print(RegisterStudent("noob123", "pronoob", "Noob"))
 print(AddRating("rc123", "CS-UY 2413", "1", "A1", "Very Good", "GOOD CLASS!"))
 """

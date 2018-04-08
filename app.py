@@ -14,4 +14,5 @@ def homepage():
 
 @app.route('/rate')
 def rate():
-    return render_template('rate.html',UserName=request.args['UserName'])
+    UserName = request.args['UserName']
+    return render_template('rate.html',UserName=UserName, Courses=GetCoursesByUsername(UserName))

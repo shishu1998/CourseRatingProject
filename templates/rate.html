@@ -4,8 +4,38 @@
 	<Title> Course Rating </Title>
 </head>
 <body>
+  <div>
   {% if UserName %}
 	welcome, {{UserName}}
   {% endif %}
+  </div>
+  <form action="" method="post">
+	  <div>
+	  {% if Courses %}
+		Course:
+		<select>
+		  {% for Course in Courses %}
+			<option value={{Course[0]}}>{{Course[0]}} - Section {{Course[1]}} - {{Course[2]}}</option>
+		  {% endfor %}
+		</select>
+	  {% endif %}
+	  </div>
+	  <div>
+	  Rating:<br>
+		  <input type="radio" name="rating" value="Very Good"> Very Good
+		  <input type="radio" name="rating" value="Good"> Good
+		  <input type="radio" name="rating" value="Average"> Average
+		  <input type="radio" name="rating" value="Bad"> Bad
+		  <input type="radio" name="rating" value="Very Bad"> Very Bad
+	  </div>
+	  <div>
+		Notes (maximum number of characters allowed is 150): <br>
+		<textarea name="Notes" maxlength="150"> </textarea>
+	  </div>
+	  <div>
+		<input type="submit" value="Submit">
+	  </div>
+  </form>
+  
 </body>
 </html>

@@ -24,7 +24,8 @@ INSERT INTO InCourse values
 ('CS-UY 2214', 'A', 1, 1),
 ('CS-UY 2214', 'B', 1, 2),
 ('CS-UY 2413', 'A1', 1, 2),
-('CS-UY 3083', '', 2, 3);
+('CS-UY 3083', '', 2, 3),
+('CS-UY 3083', '', 2, 1);
 
 -- Check that things have been inserted correctly
 /*
