@@ -45,6 +45,8 @@ def RegisterStudent(UName, PW, FName):
     success = 0
     try:
         with connection.cursor() as cursor:
+            #FIXUP: Use cursor.callproc
+            #cursor.callproc("RegisterStudent", [UName, PW, FName, "@Success"])
             sql = "CALL RegisterStudent('" + UName + "', '" + PW + "', '" + FName + "', @Success);"
             cursor.execute(sql)
             cursor.execute("SELECT @Success")
@@ -59,6 +61,8 @@ def AddRating(UName, CourseID, Sem, Section, Rate, Note):
     success = 0
     try:
         with connection.cursor() as cursor:
+            #FIXUP: Use cursor.callproc
+            #cursor.callproc("AddRating", [UName, CourseID, Sem, Section, Rate, Note, "@Success"])
             sql = "CALL AddRating('" + UName + "', '" + CourseID + "', '" + Sem + "', '" + Section + "', '" + Rate + "', '" + Note + "', @Success);"
             cursor.execute(sql)
             cursor.execute("SELECT @Success")
