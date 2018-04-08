@@ -24,8 +24,7 @@ def GetCoursesByUser(id):
     connection = DatabaseConnect()
     try:
         with connection.cursor() as cursor:
-            sql = "CALL GetCoursesByUser(" + id + ");"
-            cursor.execute(sql)
+            cursor.callproc("GetCoursesByUser", [id])
             result = cursor.fetchall()
             return result
     finally:
@@ -35,8 +34,7 @@ def GetCoursesByUsername(id):
     connection = DatabaseConnect()
     try:
         with connection.cursor() as cursor:
-            sql = "CALL GetCoursesByUsername('" + id + "');"
-            cursor.execute(sql)
+            cursor.callproc("GetCoursesByUsername", [id])
             result = cursor.fetchall()
             return result
     finally:
@@ -64,13 +62,13 @@ def AddRating(UName, CourseID, Sem, Section, Rate, Note):
         connection.commit()
         connection.close()
 
-#Tests for this method
-
-#print(ValidateUser('rc123','P@ssw0rd'))
-#print(ValidateUser('rc123','lmao'))
-#print(GetCoursesByUser('1'))
-#print(GetCoursesByUser('20'))
-#print(GetCoursesByUsername('rc123'))
-#print(GetCoursesByUsername('thisdoesntexist'))
-#print(RegisterStudent("noob123", "pronoob", "Noob"))
-#print(AddRating("rc123", "CS-UY 2413", "1", "A1", "Very Good", "GOOD CLASS!"))
+"""
+print(ValidateUser('rc123','P@ssw0rd'))
+print(ValidateUser('rc123','lmao'))
+print(GetCoursesByUser('1'))
+print(GetCoursesByUser('20'))
+print(GetCoursesByUsername('rc123'))
+print(GetCoursesByUsername('thisdoesntexist'))
+print(RegisterStudent("noob123", "pronoob", "Noob"))
+print(AddRating("rc123", "CS-UY 2413", "1", "A1", "Very Good", "GOOD CLASS!"))
+"""
