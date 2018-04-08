@@ -40,6 +40,17 @@ def GetSemesterName(semesterID):
             return result
     finally:
         connection.close()
+
+def GetSemesterID(semesterName):
+    connection = DatabaseConnect()
+    try:
+        with connection.cursor() as cursor:
+            sql = "SELECT SemesterID from Semester WHERE Semester ='" + semesterName +"';"
+            cursor.execute(sql)
+            result = str(cursor.fetchone()['SemesterID'])
+            return result
+    finally:
+        connection.close()
         
 def RegisterStudent(UName, PW, FName):
     connection = DatabaseConnect()
@@ -57,6 +68,7 @@ def RegisterStudent(UName, PW, FName):
         connection.close()
         return success
 
+#FIXUP: Sem should be an int for this method to work, not string
 def AddRating(UName, CourseID, Sem, Section, Rate, Note):
     connection = DatabaseConnect()
     success = 0
@@ -80,6 +92,7 @@ print(GetCoursesByUsername('rc123'))
 print(GetCoursesByUsername('rc123')[0][0])
 print(GetCoursesByUsername('thisdoesntexist'))
 print (GetSemesterName(1))
+print (GetSemesterID('Fall 2017'))
 print(RegisterStudent("noob123", "pronoob", "Noob"))
-print(AddRating("rc123", "CS-UY 2413", "1", "A1", "Very Good", "GOOD CLASS!"))
+print(AddRating("rc123", "CS-UY 2214", "1", "A", "Very Good", "GOOD CLASS!"))
 """
