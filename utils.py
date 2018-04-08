@@ -65,8 +65,6 @@ def AddRating(UName, CourseID, Sem, Section, Rate, Note):
 """
 print(ValidateUser('rc123','P@ssw0rd'))
 print(ValidateUser('rc123','lmao'))
-print(GetCoursesByUser('1'))
-print(GetCoursesByUser('20'))
 print(GetCoursesByUsername('rc123'))
 print(GetCoursesByUsername('thisdoesntexist'))
 print(RegisterStudent("noob123", "pronoob", "Noob"))
