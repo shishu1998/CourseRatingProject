@@ -13,16 +13,16 @@
 	  <div>
 	  {% if Courses %}
 		Course:
-		<select>
+		<select name="Course">
 		  {% for Course in Courses %}
-			<option value={{Course[0]}}>{{Course[0]}} - Section {{Course[1]}} - {{Course[2]}}</option>
+			<option value="{{Course[0]}} - {{Course[1]}} - {{Course[2]}}">{{Course[0]}} - {{Course[1]}} - {{Course[2]}}</option>
 		  {% endfor %}
 		</select>
 	  {% endif %}
 	  </div>
 	  <div>
 	  Rating:<br>
-		  <input type="radio" name="rating" value="Very Good"> Very Good
+		  <input type="radio" name="rating" value="Very Good" checked> Very Good
 		  <input type="radio" name="rating" value="Good"> Good
 		  <input type="radio" name="rating" value="Average"> Average
 		  <input type="radio" name="rating" value="Bad"> Bad
@@ -34,6 +34,11 @@
 	  </div>
 	  <div>
 		<input type="submit" value="Submit">
+	  </div>
+	  <div>
+	  {% if message %}
+		{{message}}
+	  {% endif %}
 	  </div>
   </form>
   
