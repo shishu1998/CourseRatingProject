@@ -20,9 +20,7 @@ def rate():
         CourseInfo = request.form['Course'].split(' - ')
         rating = request.form['rating']
         notes = request.form['Notes']
-        print(UserName, CourseInfo[0], str(GetSemesterID(CourseInfo[2])), CourseInfo[1], rating, notes)
         success = AddRating(UserName, CourseInfo[0], GetSemesterID(CourseInfo[2]), CourseInfo[1], rating, notes)
-        print(success)
         if success:
             message = 'Rating successfully added'
         else:
