@@ -47,7 +47,7 @@ def GetSemesterID(semesterName):
         with connection.cursor() as cursor:
             sql = "SELECT SemesterID from Semester WHERE Semester ='" + semesterName +"';"
             cursor.execute(sql)
-            result = str(cursor.fetchone()['SemesterID'])
+            result = cursor.fetchone()['SemesterID']
             return result
     finally:
         connection.close()
@@ -76,7 +76,7 @@ def AddRating(UName, CourseID, Sem, Section, Rate, Note):
         with connection.cursor() as cursor:
             #FIXUP: Use cursor.callproc
             #cursor.callproc("AddRating", [UName, CourseID, Sem, Section, Rate, Note, "@Success"])
-            sql = "CALL AddRating('" + UName + "', '" + CourseID + "', '" + Sem + "', '" + Section + "', '" + Rate + "', '" + Note + "', @Success);"
+            sql = "CALL AddRating('" + UName + "', '" + CourseID + "', '" + str(Sem) + "', '" + Section + "', '" + Rate + "', '" + Note + "', @Success);"
             cursor.execute(sql)
             cursor.execute("SELECT @Success")
             success = cursor.fetchone()['@Success']
@@ -94,5 +94,5 @@ print(GetCoursesByUsername('thisdoesntexist'))
 print (GetSemesterName(1))
 print (GetSemesterID('Fall 2017'))
 print(RegisterStudent("noob123", "pronoob", "Noob"))
-print(AddRating("rc123", "CS-UY 2214", "1", "A", "Very Good", "GOOD CLASS!"))
+print(AddRating("rc123", "CS-UY 2214", 1, "A", "Very Good", "GOOD CLASS!"))
 """
