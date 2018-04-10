@@ -19,7 +19,7 @@
                     Select Your Course <br>
                     <select id ="selectCourse" name="Course">
                       {% for Course in Courses %}
-                        <option value="{{Course[0]}} - {{Course[1]}} - {{Course[2]}}">{{Course[0]}} - {{Course[1]}} - {{Course[2]}}</option>
+                        <option value="{{Course[0]}} - {{Course[1]}} - {{Course[2]}}">{{Course[0]}} - {% if Course[1]%} {{Course[1]}} - {% endif %} {{Course[2]}}</option>
                       {% endfor %}
                     </select>
                   {% endif %}
