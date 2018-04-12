@@ -12,6 +12,15 @@ def homepage():
             error = 'Invalid Credentials. Please try again.'
     return render_template('index.html', error=error)
 
+def register():
+    message = None
+    if request.method == 'POST':
+        if RegisterStudent(request.form['UserName'], request.form['Password'], request.form['FullName']):
+            message = "Registration successful"
+        else:
+            message = "Account already exists"
+    return render_template('registration.html', message=message)
+
 @app.route('/rate', methods=['GET','POST'])
 def rate():
     message = None
