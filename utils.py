@@ -1,4 +1,5 @@
 import pymysql.cursors
+import hashlib
 
 #Connects to the database
 def DatabaseConnect():
@@ -13,7 +14,8 @@ def ValidateUser(username, password):
     connection = DatabaseConnect()
     try:
         with connection.cursor() as cursor:
-            sql = "SELECT ValidateUser('" + username + "','" + password + "') AS Valid;"
+            passwordhash = hashlib.sha256(str.encode(password)).hexdigest()
+            sql = "SELECT ValidateUser('" + username + "','" + passwordhash + "') AS Valid;"
             cursor.execute(sql)
             result = cursor.fetchone()['Valid']
             return result

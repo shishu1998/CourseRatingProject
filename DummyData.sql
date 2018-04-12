@@ -3,8 +3,8 @@ USE CourseMetric;
 INSERT INTO UserTypes(UserType) VALUES('Student'), ('Professor');
 
 INSERT INTO Users (UserName, LoginPassword, FullName, UserTypeID)
-VALUES ('rc123', 'P@ssw0rd', 'Richie Yeung', 1), ('kp654', 'P@ssw0rd', 'Keith Phung', 1),
-('lc754', 'P@ssw0rd', 'Larry Charles', 1), ('ae285', 'P@ssw0rd', 'Albert Einstein', 2);
+VALUES ('rc123', sha2('P@ssw0rd',256), 'Richie Yeung', 1), ('kp654', sha2('P@ssw0rd',256), 'Keith Phung', 1),
+('lc754', sha2('P@ssw0rd',256), 'Larry Charles', 1), ('ae285', sha2('P@ssw0rd',256), 'Albert Einstein', 2);
 
 INSERT INTO Courses VALUES ('CS-UY 3083','Database'),
 ('CS-UY 2214','Computer Architecture and Organization'),
