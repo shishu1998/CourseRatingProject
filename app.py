@@ -4,13 +4,15 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def homepage():
-    error = None
+    message = None
+    if 'Message' in request.args:
+        message = request.args['Message']
     if request.method == 'POST':
         if ValidateUser(request.form['UserName'], request.form['Password']):
             return redirect(url_for('rate', UserName=request.form['UserName']))
         else:
-            error = 'Invalid Credentials. Please try again.'
-    return render_template('index.html', error=error)
+            message = 'Invalid Credentials. Please try again.'
+    return render_template('index.html', message=message)
 
 @app.route('/rate', methods=['GET','POST'])
 def rate():
@@ -26,3 +28,15 @@ def rate():
         else:
             message = 'Please do not leave more than one rating per class'
     return render_template('rate.html',UserName=UserName, Courses=GetCoursesByUsername(UserName), message=message)
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    error = None
+    if request.method == 'POST':
+        if request.form['Password'] != request.form['Verify']:
+            error = 'Please make sure your password is typed correctly'
+        elif RegisterStudent(request.form['UserName'], request.form['Password'], request.form['FullName']):
+            return redirect(url_for('homepage', Message='Account registered successfully!'))
+        else:
+            error = 'Username already exists in the database'
+    return render_template('register.html', error=error)

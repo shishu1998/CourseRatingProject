@@ -8,43 +8,45 @@
      <body>
       <div class="rate-page">
           <div class="form">
-              <div id = "welcomeMsg">
-               {% if UserName %}
-                Welcome, {{UserName}}!
-               {% endif %}
-              </div> <br>
-              <form action="" method="post">
-                  <div>
-                  {% if Courses %}
-                    Select Your Course <br>
-                    <select id ="selectCourse" name="Course">
-                      {% for Course in Courses %}
-                        <option value="{{Course[0]}} - {{Course[1]}} - {{Course[2]}}">{{Course[0]}} - {% if Course[1]%} {{Course[1]}} - {% endif %} {{Course[2]}}</option>
-                      {% endfor %}
-                    </select>
-                  {% endif %}
-                  </div><br>
-                  <div>
-                  Choose Your Rating
-                  </div> <br>
-                  <input type="radio" name="rating" value="Very Good" checked> Very Good
-                  <input type="radio" name="rating" value="Good"> Good
-                  <input type="radio" name="rating" value="Average"> Average
-                  <input type="radio" name="rating" value="Bad"> Bad
-                  <input type="radio" name="rating" value="Very Bad"> Very Bad
-                  <div> <br>
-                    Enter Your Comments (maximum 150 characters): <br>
-                  </div> <br>
-                  <textarea name="Notes" maxlength="150"> </textarea>
-                  <div> <br>
-                    <input id = "submit" type="submit" value="Submit">
-                  </div><br>
-                  <div>
-                  {% if message %}
-                    {{message}}
-                  {% endif %}
-                  </div>
-              </form>
+		  <div id = "welcomeMsg">
+		  {% if UserName %}
+			Welcome, {{UserName}}!
+		  {% endif %}
+		  </div> <br>
+			{% if Courses %}
+			  <form action="" method="post">
+				  <div>
+					Select Your Course <br>
+					<select id ="selectCourse" name="Course">
+					  {% for Course in Courses %}
+						<option value="{{Course[0]}} - {{Course[1]}} - {{Course[2]}}">{{Course[0]}} - {% if Course[1]%} {{Course[1]}} - {% endif %} {{Course[2]}}</option>
+					  {% endfor %}
+					</select>
+				  </div><br>
+				  <div>
+				  Choose Your Rating
+				  </div> <br>
+				  <input type="radio" name="rating" value="Very Good" checked> Very Good
+				  <input type="radio" name="rating" value="Good"> Good
+				  <input type="radio" name="rating" value="Average"> Average
+				  <input type="radio" name="rating" value="Bad"> Bad
+				  <input type="radio" name="rating" value="Very Bad"> Very Bad
+				  <div> <br>
+					Enter Your Comments (maximum 150 characters): <br>
+				  </div> <br>
+				  <textarea name="Notes" maxlength="150"> </textarea>
+				  <div> <br>
+					<input id = "submit" type="submit" value="Submit">
+				  </div><br>
+				  <div>
+				  {% if message %}
+					{{message}}
+				  {% endif %}
+				  </div>
+			  </form>
+			{% else %}
+				You are not enrolled in any courses
+			{% endif %}
           </div>
       </div>
      </body>

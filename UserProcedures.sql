@@ -1,5 +1,7 @@
+Use CourseMetric;
+
 DROP PROCEDURE IF EXISTS GetCoursesByUser;
-DROP PROCEDURE IF EXISTS GetCOursesByUserName;
+DROP PROCEDURE IF EXISTS GetCoursesByUserName;
 DROP PROCEDURE IF EXISTS RegisterStudent;
 DROP PROCEDURE IF EXISTS AddRating;
 
@@ -25,11 +27,13 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE RegisterStudent(IN UName VARCHAR(20), IN PW VARCHAR(64), IN FName VARCHAR(64), OUT Success Boolean)
 BEGIN
+	DECLARE PWHash VARCHAR(64);
+    SET PWHash = sha2(PW, 256);
 	IF UName IN (SELECT UserName FROM Users)
 		THEN SET Success = false;
 	ELSE
 		BEGIN
-			INSERT INTO Users (UserName, LoginPassword, FullName, UserTypeID) VALUES (UName, PW, FName, 1);
+			INSERT INTO Users (UserName, LoginPassword, FullName, UserTypeID) VALUES (UName, PWHash, FName, 1);
             SET Success = true;
 		END;
     END IF;
