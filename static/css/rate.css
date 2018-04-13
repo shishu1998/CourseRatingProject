@@ -1,12 +1,5 @@
-body {
-  background: #76b852;
-  font-family: "Roboto", sans-serif;
-}
-
-.rate-page{
+.login-page{
     width: 1000px;
-    padding: 8% 0 0;
-    margin: auto;
 }
 
 div#welcomeMsg{
@@ -14,14 +7,7 @@ div#welcomeMsg{
 }
 
 .form{
-    position: relative;
-    z-index: 1;
-    background: #FFFFFF;
     max-width: 1000px;
-    margin: 0 auto 100px;
-    padding: 45px;
-    text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
 textarea {
@@ -50,18 +36,6 @@ select#selectCourse{
     width: 300px;
 }
 
-input#submit {
-    font-family: "Roboto", sans-serif;
-    text-transform: uppercase;
-    outline: 0;
-    background: #4CAF50;
+input#submitButton {
     width: 20%;
-    border: 0;
-    padding: 15px;
-    color: #FFFFFF;
-    font-size: 14px;
-    border-radius: 25px;
-}
-input#submit:hover,input#submit:active,input#submit:focus {
-    background: #43A047;
 }
