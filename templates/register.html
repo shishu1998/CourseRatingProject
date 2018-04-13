@@ -5,21 +5,25 @@
     </head>
 
     <body>
+	<div class="login-page">
+	    <div class="form">
 		<form action="" method="post">
-			<input type="text" name="UserName" placeholder = "Enter Username" required autofocus>
-			<br>
-			<input type="password" name="Password" placeholder = "Enter Password" required autofucs>
-			<br>
-			<input type="password" name="Verify" placeholder = "Confirm Password" required autofucs>
-			<br>
-			<input type="text" name="FullName" placeholder = "Enter Full Name" required autofucs>
-			<br>
-			<br>
-			<input type="submit" value="Register"><br>
-			{% if error %}
-				<p class="error"><strong>Error:</strong> {{ error }} <br>
-			{% endif %}
-			<a href="/">Return To Home </a>
+		    <input type="text" name="UserName" placeholder = "Enter Username" required autofocus>
+		    <br>
+		    <input type="password" name="Password" placeholder = "Enter Password" required autofucs>
+		    <br>
+		    <input type="password" name="Verify" placeholder = "Confirm Password" required autofucs>
+		    <br>
+		    <input type="text" name="FullName" placeholder = "Enter Full Name" required autofucs>
+		    <br>
+		    <br>
+		    <input id = "submitButton" type="submit" value="Register"><br>
+		    {% if error %}
+			<p class="error"><strong>Error:</strong> {{ error }} <br>
+		    {% endif %}
+		    <a href="/">Return To Home </a>
 		</form>
+	    </div>
+	</div>
     </body>
 </html>
