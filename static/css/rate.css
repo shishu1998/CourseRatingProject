@@ -10,6 +10,10 @@ div#welcomeMsg{
     max-width: 1000px;
 }
 
+.form input{
+    width:0;
+}
+
 textarea {
     height:auto;
     max-width:650px;
