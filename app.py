@@ -46,3 +46,17 @@ def register():
         else:
             error = 'Username already exists in the database'
     return render_template('register.html', error=error)
+
+@app.route('/enroll', methods=['GET','POST'])
+def enroll():
+    message = None
+    UserName = session['UserName']
+    if request.method == 'POST':
+        CourseCode = request.form['CourseCode']
+        success = EnrollStudent(UserName, CourseCode)
+        if success:
+            message = 'Successfully enrolled in class'
+        else:
+            message = "Please make sure that you are providing and valid code for a course that you're not enrolled in"
+    return render_template('enroll.html',UserName=UserName, message=message)
+

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <Title> Course Enrollment </Title>
+    </head>
+
+    <body>
+		<form action="" method="post">
+			<input type="text" name="CourseCode" placeholder = "Enter the CourseCode" required autofocus>
+			<br>
+			<input type="submit" value="Enroll"><br>
+			{% if message %}
+				<p class="error"><strong>Message:</strong> {{ message }} <br>
+			{% endif %}
+			<a href="/home">Return To Home </a>
+		</form>
+    </body>
+</html>
