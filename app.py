@@ -1,6 +1,7 @@
 from utils import *
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, session
 app = Flask(__name__)
+app.secret_key = 'RichardLikesSpaghettiAndMeatBalls'
 
 @app.route('/', methods=['GET', 'POST'])
 def homepage():
@@ -9,15 +10,20 @@ def homepage():
         message = request.args['Message']
     if request.method == 'POST':
         if ValidateUser(request.form['UserName'], request.form['Password']):
-            return redirect(url_for('rate', UserName=request.form['UserName']))
+            session['UserName'] = request.form['UserName']
+            return redirect(url_for('homescreen'))
         else:
             message = 'Invalid Credentials. Please try again.'
     return render_template('index.html', message=message)
 
+@app.route('/home')
+def homescreen():
+    return render_template('home.html')
+
 @app.route('/rate', methods=['GET','POST'])
 def rate():
     message = None
-    UserName = request.args['UserName']
+    UserName = session['UserName']
     if request.method == 'POST':
         CourseInfo = request.form['Course'].split(' - ')
         rating = request.form['rating']
