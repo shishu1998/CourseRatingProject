@@ -12,7 +12,9 @@
 			{% if message %}
 				<p class="error"><strong>Message:</strong> {{ message }} <br>
 			{% endif %}
-			<a href="/home">Return To Home </a>
+		</form>
+		<form method="get" action="/home">
+			<button type="submit">Return to Home</button>
 		</form>
     </body>
 </html>
