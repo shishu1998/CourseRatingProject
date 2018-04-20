@@ -35,7 +35,3 @@ select#selectCourse{
     white-space: nowrap;
     width: 300px;
 }
-
-input#submitButton {
-    width: 20%;
-}
