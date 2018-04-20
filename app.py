@@ -32,7 +32,7 @@ def rate():
         if success:
             message = 'Rating successfully added'
         else:
-            message = 'Please do not leave more than one rating per class'
+            message = 'Please do not leave more than one rating per course!'
     return render_template('rate.html',UserName=UserName, Courses=GetCoursesByUsername(UserName), message=message)
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -55,8 +55,8 @@ def enroll():
         CourseCode = request.form['CourseCode']
         success = EnrollStudent(UserName, CourseCode)
         if success:
-            message = 'Successfully enrolled in class'
+            message = 'Successfully enrolled into course!'
         else:
-            message = "Please make sure that you are providing a valid code for a course that you're not enrolled in"
+            message = "Please make sure that you are providing a valid course code for a course that you're not enrolled in"
     return render_template('enroll.html',UserName=UserName, message=message)
 
