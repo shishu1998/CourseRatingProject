@@ -1,7 +1,7 @@
 from utils import *
 from flask import Flask, render_template, request, url_for, redirect, session
 app = Flask(__name__)
-app.secret_key = 'RichardLikesSpaghettiAndMeatBalls'
+app.secret_key = ''
 
 @app.route('/', methods=['GET', 'POST'])
 def homepage():
