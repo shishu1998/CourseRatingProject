@@ -3,8 +3,8 @@
      <head>
          <Title> Course Rating </Title>
 
-         <link rel="stylesheet" href="{{ url_for('static', filename='css/inputform.css') }}">
-         <link rel="stylesheet" href="{{ url_for('static', filename='css/rate.css') }}">
+		 <link rel="stylesheet" href="{{ url_for('static', filename='css/inputform.css') }}">
+		 <link rel="stylesheet" href="{{ url_for('static', filename='css/rate.css') }}">
 	 </head>
      <body>
       <div class="login-page">
@@ -13,7 +13,7 @@
                   {% if UserName %}
                     Welcome, {{UserName}}!
                   {% endif %}
-		        </div> <br>
+			  </div> <br>
               {% if Courses %}
 			  <form action="" method="post">
 				  <div>
@@ -24,16 +24,23 @@
 					  {% endfor %}
 					</select>
 				  </div><br>
+
+				  <div> Choose Your Rating </div> <br>
+
+				  <input type="radio" name="rating" value="Very Good" checked/>
+				  <label> Very Good </label>
+				  <input type="radio" name="rating" value="Good"/>
+				  <label> Good </label>
+				  <input type="radio" name="rating" value="Average"/>
+				  <label> Average </label>
+				  <input type="radio" name="rating" value="Bad"/>
+				  <label> Bad </label>
+				  <input type="radio" name="rating" value="Very Bad"/>
+				  <label> Very Bad </label> <br>
+				  <br>
+
 				  <div>
-				  Choose Your Rating
-				  </div>
-				  <input type="radio" name="rating" value="Very Good" checked> Very Good
-				  <input type="radio" name="rating" value="Good"> Good
-				  <input type="radio" name="rating" value="Average"> Average
-				  <input type="radio" name="rating" value="Bad"> Bad
-				  <input type="radio" name="rating" value="Very Bad"> Very Bad <br>
-				  <div> <br>
-					Enter Your Comments (maximum 150 characters): <br>
+					Enter Your Comments (maximum 150 characters):
 				  </div> <br>
 				  <textarea name="Notes" maxlength="150"> </textarea>
 				  <div> <br>
@@ -48,6 +55,9 @@
 			{% else %}
 				You are not enrolled in any courses
 			{% endif %}
+		    <form method="get" action="/home">
+				<button type="submit">Return to Home</button>
+			</form>
           </div>
       </div>
      </body>
