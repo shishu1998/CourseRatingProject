@@ -50,6 +50,7 @@ input#submitButton {
     font-size: 14px;
     border-radius: 25px;
 }
+
 input#submitButton:hover, input#submitButton:active, input#submitButton:focus {
     background: #43A047;
 }
