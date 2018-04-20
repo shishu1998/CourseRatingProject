@@ -93,7 +93,6 @@ def EnrollStudent(UName, CCode):
     try:
         with connection.cursor() as cursor:
             sql = "CALL EnrollStudent('" + UName + "', '" + CCode + "', " + "@Success);"
-            print(sql)
             cursor.execute(sql)
             cursor.execute("SELECT @Success")
             success = cursor.fetchone()['@Success']
