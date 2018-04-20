@@ -57,6 +57,6 @@ def enroll():
         if success:
             message = 'Successfully enrolled in class'
         else:
-            message = "Please make sure that you are providing and valid code for a course that you're not enrolled in"
+            message = "Please make sure that you are providing a valid course code or not enrolling in the same course more than once"
     return render_template('enroll.html',UserName=UserName, message=message)
 
