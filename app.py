@@ -2,6 +2,14 @@ from utils import *
 from flask import Flask, render_template, request, url_for, redirect
 app = Flask(__name__)
 
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    message = None
+    if request.method == 'POST':
+        message = 'Please enter your username and password.'
+        return redirect(url_for('homepage', Message=message))
+    return render_template('home.html', error=None)
+
 @app.route('/', methods=['GET', 'POST'])
 def homepage():
     message = None
@@ -9,7 +17,7 @@ def homepage():
         message = request.args['Message']
     if request.method == 'POST':
         if ValidateUser(request.form['UserName'], request.form['Password']):
-            return redirect(url_for('rate', UserName=request.form['UserName']))
+            return redirect(url_for('home', error=None))
         else:
             message = 'Invalid Credentials. Please try again.'
     return render_template('index.html', message=message)
