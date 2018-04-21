@@ -87,6 +87,20 @@ def AddRating(UName, CourseID, Sem, Section, Rate, Note):
         connection.close()
         return success
 
+def EnrollStudent(UName, CCode):
+    connection = DatabaseConnect()
+    success = 0
+    try:
+        with connection.cursor() as cursor:
+            sql = "CALL EnrollStudent('" + UName + "', '" + CCode + "', " + "@Success);"
+            cursor.execute(sql)
+            cursor.execute("SELECT @Success")
+            success = cursor.fetchone()['@Success']
+    finally:
+        connection.commit()
+        connection.close()
+        return success
+
 """
 print(ValidateUser('rc123','P@ssw0rd'))
 print(ValidateUser('rc123','lmao'))
@@ -97,4 +111,5 @@ print (GetSemesterName(1))
 print (GetSemesterID('Fall 2017'))
 print(RegisterStudent("noob123", "pronoob", "Noob"))
 print(AddRating("rc123", "CS-UY 2214", 1, "A", "Very Good", "GOOD CLASS!"))
+print (EnrollStudent('rc123','125ab465cffacce0b77c7b1a08af29b3'))
 """
