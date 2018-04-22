@@ -6,14 +6,15 @@
     </head>
     <body>
 	<div class="form">
-            <p class="message">Want to rate a course? <a href="/rate"> Course Evaluation</a></p> 
-		<form action="/index" method="post">
-		    <input id = "submitButton" class = "submit" type="submit" value="Logout">
-		    <br>
-		    {% if error %}
-                        <p class="error"><strong>Error:</strong> {{ error }} <br>
-                    {% endif %}
-		</form>
+	    <p class="message">Want to rate a course? <a href="/rate"> Course Evaluation</a></p><br>
+            <p class="message">Want to enroll a course? <a href="/enroll"> Course Registration</a><p>
+	    <form action="/index" method="post">
+		<input id = "submitButton" class = "submit" type="submit" value="Logout">
+		<br>
+		{% if error %}
+                    <p class="error"><strong>Error:</strong> {{ error }} <br>
+                {% endif %}
+	    </form>
 	</div>
     </body>
 </html>
