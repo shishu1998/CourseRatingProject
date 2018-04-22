@@ -7,8 +7,8 @@
     <body>
 	<div class="form">
             <p class="message">Want to rate a course? <a href="/rate"> Course Evaluation</a></p> 
-		<form action="" method="post">
-		    <input id = "submitButton" class = "submit" type="submit" value="Lotout">
+		<form action="/index" method="post">
+		    <input id = "submitButton" class = "submit" type="submit" value="Logout">
 		    <br>
 		    {% if error %}
                         <p class="error"><strong>Error:</strong> {{ error }} <br>
