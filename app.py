@@ -2,6 +2,14 @@ from utils import *
 from flask import Flask, render_template, request, url_for, redirect
 app = Flask(__name__)
 
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    error = None
+    if request.method == 'POST':
+        session['UserName'] = False
+        return redirect(url_for('homepage', Message='Logout successful!'))
+    return render_template('home.html', error=error)
+
 @app.route('/', methods=['GET', 'POST'])
 def homepage():
     message = None
@@ -9,7 +17,8 @@ def homepage():
         message = request.args['Message']
     if request.method == 'POST':
         if ValidateUser(request.form['UserName'], request.form['Password']):
-            return render_template('home.html', error=None)
+            session['UserName'] = True
+            return redirect(url_for('home', error=None))
         else:
             message = 'Invalid Credentials. Please try again.'
     return render_template('index.html', message=message)
