@@ -35,6 +35,7 @@ CREATE TABLE CourseSection(
 	CourseID VARCHAR(10) NOT NULL,
 	SectionName VARCHAR(2) DEFAULT '',
     SemesterID int NOT NULL,
+    CourseCode VARCHAR(32) NOT NULL,
     PRIMARY KEY(CourseID, SectionName, SemesterID),
 	FOREIGN KEY (CourseID) REFERENCES Courses(CourseID),
 	FOREIGN KEY (SemesterID) REFERENCES Semester(SemesterID)
