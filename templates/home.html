@@ -1,20 +1,14 @@
+
 <!DOCTYPE html>
 <html>
     <head>
-        <Title> Home </Title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+        <Title> Home Page </Title>
     </head>
     <body>
-	<div class="form">
-	    <p class="message">Want to rate a course? <a href="/rate"> Course Evaluation</a></p><br>
-            <p class="message">Want to enroll a course? <a href="/enroll"> Course Registration</a><p>
-	    <form action="/home" method="post">
-		<input id = "submitButton" class = "submit" type="submit" value="Logout">
-		<br>
-		{% if error %}
-                    <p class="error"><strong>Error:</strong> {{ error }} <br>
-                {% endif %}
-	    </form>
-	</div>
+		<form action="" method="get">
+			<button type="submit" formaction="enroll">Enroll in a class</button>
+			<button type="submit" formaction="rate">Rate a class</button>
+			<button type="submit" formaction="logout">Log out</button>
+		</form>
     </body>
 </html>
