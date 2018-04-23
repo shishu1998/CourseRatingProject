@@ -20,6 +20,10 @@ def homepage():
 def homescreen():
     return render_template('home.html')
 
+@app.route('/logout')
+def logout():
+    return render_template('index.html', message='Logged out')
+
 @app.route('/rate', methods=['GET','POST'])
 def rate():
     message = None
