@@ -9,7 +9,7 @@ def homepage():
         message = request.args['Message']
     if request.method == 'POST':
         if ValidateUser(request.form['UserName'], request.form['Password']):
-            session['UserName'] = True
+            session['UserName'] = request.form['UserName']
             return redirect(url_for('homescreen', error=None))
         else:
             message = 'Invalid Credentials. Please try again.'
