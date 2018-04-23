@@ -23,7 +23,7 @@ def homescreen():
 @app.route('/logout')
 def logout():
     session.pop('UserName', None)
-    return redirect(url_for('homepage', message='Logged out successfully!'))
+    return redirect(url_for('homepage', Message='Logged out successfully!'))
 
 @app.route('/rate', methods=['GET','POST'])
 def rate():
