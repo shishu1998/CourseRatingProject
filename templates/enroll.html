@@ -2,27 +2,25 @@
 <html>
     <head>
         <Title> Course Enrollment </Title>
-		
-		<link rel="stylesheet" href="{{ url_for('static', filename='css/inputform.css') }}">
+    		<link rel="stylesheet" href="{{ url_for('static', filename='css/inputform.css') }}">
     </head>
-
     <body>
-		<div class="login-page">
-			<div class="form">
-				<form action="" method="post">
-					<input type="text" name="CourseCode" placeholder = "Enter the CourseCode" maxlength="32" required autofocus>
-					<br>
-					<input id = "submitButton" type="submit" value="Enroll"><br>
-				</form>
-				
-				<form method="get" action="/home">
-					<button type="submit">Return to Home</button>
-				</form>
-				
-				{% if message %}
-					<p class="error"><strong>Message:</strong> {{ message }} <br>
-				{% endif %}
-			</div>
-		</div>
+      <div class="login-page">
+        <div class="form">
+          <form action="" method="post">
+            <input type="text" name="CourseCode" placeholder = "Enter the CourseCode" maxlength="32" required autofocus>
+            <br>
+            <input id = "submitButton" type="submit" value="Enroll"><br>
+          </form>
+
+          <form method="get" action="/home">
+            <button type="submit">Return to Home</button>
+          </form>
+
+          {% if message %}
+            <p class="error"><strong>Message:</strong> {{ message }} <br>
+          {% endif %}
+        </div>
+      </div>
     </body>
 </html>
