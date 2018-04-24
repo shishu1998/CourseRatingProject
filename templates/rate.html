@@ -48,11 +48,6 @@
               <input id = "submitButton" type="submit" value="Submit"> 
             </div>
           </form>
-          <div>
-            {% if message %}
-              {{message}}
-            {% endif %}
-          </div> <br>
 
           {% else %}
             You are not enrolled in any courses!
@@ -60,6 +55,11 @@
           <form method="get" action="/home">
                 <button type="submit">Return to Home</button>
           </form> <br>
+		  <div>
+            {% if message %}
+              {{message}}
+            {% endif %}
+          </div> <br>
         </div>
       </div>
     </body>
