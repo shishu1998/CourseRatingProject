@@ -32,6 +32,17 @@ def GetCoursesByUsername(UName):
     finally:
         connection.close()
 
+def GetUserType(UName):
+    connection = DatabaseConnect()
+    try:
+        with connection.cursor() as cursor:
+            sql = "CALL GetUserType('" + UName + "');"
+            cursor.execute(sql)
+            result = cursor.fetchone()['UserType']
+            return result
+    finally:
+        connection.close()
+
 def GetSemesterName(semesterID):
     connection = DatabaseConnect()
     try:
@@ -53,7 +64,7 @@ def GetSemesterID(semesterName):
             return result
     finally:
         connection.close()
-        
+
 def RegisterStudent(UName, PW, FName):
     connection = DatabaseConnect()
     success = 0
@@ -112,4 +123,5 @@ print (GetSemesterID('Fall 2017'))
 print(RegisterStudent("noob123", "pronoob", "Noob"))
 print(AddRating("rc123", "CS-UY 2214", 1, "A", "Very Good", "GOOD CLASS!"))
 print (EnrollStudent('rc123','125ab465cffacce0b77c7b1a08af29b3'))
+print (GetUserType('ae285'))
 """
