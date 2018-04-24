@@ -36,6 +36,6 @@ select#selectCourse{
     width: 300px;
 }
 
-input#submitButton{
+input#submitButton, button{
     width:25%;
 }
