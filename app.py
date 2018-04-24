@@ -1,6 +1,7 @@
 from utils import *
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, session
 app = Flask(__name__)
+app.secret_key = ''
 
 @app.route('/', methods=['GET', 'POST'])
 def homepage():
@@ -9,15 +10,25 @@ def homepage():
         message = request.args['Message']
     if request.method == 'POST':
         if ValidateUser(request.form['UserName'], request.form['Password']):
-            return redirect(url_for('rate', UserName=request.form['UserName']))
+            session['UserName'] = request.form['UserName']
+            return redirect(url_for('homescreen'))
         else:
             message = 'Invalid Credentials. Please try again.'
     return render_template('index.html', message=message)
 
+@app.route('/home')
+def homescreen():
+    return render_template('home.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('UserName', None)
+    return redirect(url_for('homepage', Message='Logged out successfully!'))
+
 @app.route('/rate', methods=['GET','POST'])
 def rate():
     message = None
-    UserName = request.args['UserName']
+    UserName = session['UserName']
     if request.method == 'POST':
         CourseInfo = request.form['Course'].split(' - ')
         rating = request.form['rating']
@@ -26,7 +37,7 @@ def rate():
         if success:
             message = 'Rating successfully added'
         else:
-            message = 'Please do not leave more than one rating per class'
+            message = 'Please do not leave more than one rating per course!'
     return render_template('rate.html',UserName=UserName, Courses=GetCoursesByUsername(UserName), message=message)
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -40,3 +51,17 @@ def register():
         else:
             error = 'Username already exists in the database'
     return render_template('register.html', error=error)
+
+@app.route('/enroll', methods=['GET','POST'])
+def enroll():
+    message = None
+    UserName = session['UserName']
+    if request.method == 'POST':
+        CourseCode = request.form['CourseCode']
+        success = EnrollStudent(UserName, CourseCode)
+        if success:
+            message = 'Successfully enrolled into course!'
+        else:
+            message = "Please make sure that you are providing a valid course code for a course that you're not enrolled in"
+    return render_template('enroll.html',UserName=UserName, message=message)
+
