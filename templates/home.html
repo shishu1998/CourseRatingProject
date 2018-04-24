@@ -2,12 +2,17 @@
 <html>
     <head>
         <Title> Home Page </Title>
+		    <link rel="stylesheet" href="{{ url_for('static', filename='css/inputform.css') }}">
     </head>
-    <body>
-		<form action="" method="get">
-			<button type="submit" formaction="enroll">Enroll in a class</button>
-			<button type="submit" formaction="rate">Rate a class</button>
-			<button type="submit" formaction="logout">Log out</button>
-		</form>
+      <body>
+      <div class="login-page">
+        <div class="form">
+          <form action="" method="get">
+            <button type="submit" formaction="enroll">Enroll in a class</button><br><br>
+            <button type="submit" formaction="rate">Rate a class</button><br><br>
+            <button type="submit" formaction="logout">Log out</button><br><br>
+          </form>
+        </div>
+      </div>
     </body>
 </html>
