@@ -38,7 +38,7 @@ body {
     margin: 15px 0 0;
 }
 
-input#submitButton{
+input#submitButton, button{
     font-family: "Roboto", sans-serif;
     text-transform: uppercase;
     outline: 0;
@@ -51,6 +51,6 @@ input#submitButton{
     border-radius: 25px;
 }
 
-input#submitButton:hover, input#submitButton:active, input#submitButton:focus{
+input#submitButton:hover, button:hover, input#submitButton:active, button:active, input#submitButton:focus, button:focus{
     background: #43A047;
 }
