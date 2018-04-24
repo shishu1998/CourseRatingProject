@@ -43,23 +43,25 @@
 					
 					<textarea name="Notes" maxlength="150"> </textarea> <br>
 					<br>
+					
 					<div>
-						<input id = "submitButton" type="submit" value="Submit">
-					</div> <br>
-					<div>
-						{% if message %}
-							{{message}}
-						{% endif %}
+						<input id = "submitButton" type="submit" value="Submit"> 
 					</div>
 				</form>
 				
-				{% else %}
-					You are not enrolled in any courses
-				{% endif %}
-				
 				<form method="get" action="/home">
-					<button type="submit">Return to Home</button>
-				</form>
+							<button type="submit">Return to Home</button>
+				</form> <br>
+				
+				<div>
+					{% if message %}
+						{{message}}
+					{% endif %}
+				</div> <br>
+				
+				{% else %}
+					You are not enrolled in any courses!
+				{% endif %}
 			</div>
 		</div>
     </body>
