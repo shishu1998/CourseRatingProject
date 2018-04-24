@@ -1,64 +1,66 @@
 <!DOCTYPE html>
- <html>
-     <head>
-         <Title> Course Rating </Title>
+<html>
+    <head>
+        <Title> Course Rating </Title>
 
-		 <link rel="stylesheet" href="{{ url_for('static', filename='css/inputform.css') }}">
-		 <link rel="stylesheet" href="{{ url_for('static', filename='css/rate.css') }}">
-	 </head>
-     <body>
-      <div class="login-page">
-          <div class="form">
-              <div id = "welcomeMsg">
-                  {% if UserName %}
-                    Welcome, {{UserName}}!
-                  {% endif %}
-			  </div> <br>
-              {% if Courses %}
-			  <form action="" method="post">
-				  <div>
-					Select Your Course <br>
-					<select id ="selectCourse" name="Course">
-					  {% for Course in Courses %}
-						<option value="{{Course[0]}} - {{Course[1]}} - {{Course[2]}}">{{Course[0]}} - {% if Course[1]%} {{Course[1]}} - {% endif %} {{Course[2]}}</option>
-					  {% endfor %}
-					</select>
-				  </div><br>
-
-				  <div> Choose Your Rating </div> <br>
-
-				  <input type="radio" name="rating" value="Very Good" checked/>
-				  <label> Very Good </label>
-				  <input type="radio" name="rating" value="Good"/>
-				  <label> Good </label>
-				  <input type="radio" name="rating" value="Average"/>
-				  <label> Average </label>
-				  <input type="radio" name="rating" value="Bad"/>
-				  <label> Bad </label>
-				  <input type="radio" name="rating" value="Very Bad"/>
-				  <label> Very Bad </label> <br>
-				  <br>
-
-				  <div>
-					Enter Your Comments (maximum 150 characters):
-				  </div> <br>
-				  <textarea name="Notes" maxlength="150"> </textarea>
-				  <div> <br>
-					<input id = "submitButton" type="submit" value="Submit">
-				  </div><br>
-				  <div>
-				  {% if message %}
-					{{message}}
-				  {% endif %}
-				  </div>
-			  </form>
-			{% else %}
-				You are not enrolled in any courses
-			{% endif %}
-		    <form method="get" action="/home">
-				<button type="submit">Return to Home</button>
-		    </form>
-          </div>
-      </div>
-     </body>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/inputform.css') }}">
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/rate.css') }}">
+    </head>
+    <body>
+		<div class="login-page">
+			<div class="form">
+				<div id = "welcomeMsg">
+				{% if UserName %}
+					Welcome, {{UserName}}!
+				{% endif %}
+				</div> <br>
+				
+				{% if Courses %}
+				<form action="" method="post">
+					<div>
+						Select Your Course <br>
+						<select id ="selectCourse" name="Course">
+							{% for Course in Courses %}
+								<option value="{{Course[0]}} - {{Course[1]}} - {{Course[2]}}">{{Course[0]}} - {% if Course[1]%} {{Course[1]}} - {% endif %} {{Course[2]}}</option>
+							{% endfor %}
+						</select>
+					</div><br>
+					
+					<div>
+						Choose Your Rating
+					</div> <br>
+					  
+					<input type="radio" name="rating" value="Very Good" checked> Very Good
+					<input type="radio" name="rating" value="Good"> Good
+					<input type="radio" name="rating" value="Average"> Average
+					<input type="radio" name="rating" value="Bad"> Bad
+					<input type="radio" name="rating" value="Very Bad"> Very Bad <br>
+					<br>
+					  
+					<div>
+						Enter Your Comments (maximum 150 characters): <br>
+					</div> <br>
+					
+					<textarea name="Notes" maxlength="150"> </textarea> <br>
+					<br>
+					<div>
+						<input id = "submitButton" type="submit" value="Submit">
+					</div> <br>
+					<div>
+						{% if message %}
+							{{message}}
+						{% endif %}
+					</div>
+				</form>
+				
+				{% else %}
+					You are not enrolled in any courses
+				{% endif %}
+				
+				<form method="get" action="/home">
+					<button type="submit">Return to Home</button>
+				</form>
+			</div>
+		</div>
+    </body>
  </html>
