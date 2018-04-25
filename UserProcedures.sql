@@ -6,6 +6,7 @@ DROP PROCEDURE IF EXISTS RegisterStudent;
 DROP PROCEDURE IF EXISTS AddRating;
 DROP PROCEDURE IF EXISTS EnrollStudent;
 DROP PROCEDURE IF EXISTS GetUserType;
+DROP PROCEDURE IF EXISTS GetRatings;
 
 -- Returns the Courses that a User takes based on the UserID provided
 DELIMITER //
@@ -31,6 +32,15 @@ CREATE PROCEDURE GetUserType(IN UName VARCHAR(20))
 BEGIN
 	SELECT UserType FROM UserTypes JOIN Users USING (UserTypeID) WHERE UserName=UName;
 END //
+DELIMITER ;
+
+-- Returns the Ratings that correspond to the given CourseID, SemesterID, and SectionName
+DELIMITER //
+CREATE PROCEDURE GetRatings(IN Course VARCHAR(10), IN Sem INT, IN Section VARCHAR(2))
+ BEGIN
+	DECLARE IntID int;
+	SELECT Rating, Notes FROM Rating WHERE CourseID = Course AND SemesterID = Sem AND SectionName = Section;
+ END //
 DELIMITER ;
 
 -- Creates a new Student with the given ID and name, returns true or false depends on if user already exists
