@@ -5,6 +5,7 @@ DROP PROCEDURE IF EXISTS GetCoursesByUserName;
 DROP PROCEDURE IF EXISTS RegisterStudent;
 DROP PROCEDURE IF EXISTS AddRating;
 DROP PROCEDURE IF EXISTS EnrollStudent;
+DROP PROCEDURE IF EXISTS GetUserType;
 
 -- Returns the Courses that a User takes based on the UserID provided
 DELIMITER //
@@ -22,6 +23,14 @@ CREATE PROCEDURE GetCoursesByUsername(IN ID VARCHAR(20))
 	SET IntID = (SELECT UserID FROM Users WHERE UserName = ID);
     CALL GetCoursesByUser(IntID);
  END //
+DELIMITER ;
+
+-- Returns the UserType of a User
+DELIMITER //
+CREATE PROCEDURE GetUserType(IN UName VARCHAR(20))
+BEGIN
+	SELECT UserType FROM UserTypes JOIN Users USING (UserTypeID) WHERE UserName=UName;
+END //
 DELIMITER ;
 
 -- Creates a new Student with the given ID and name, returns true or false depends on if user already exists

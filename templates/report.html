@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <Title> Course Rating Report </Title>
+    </head>
+    <body>
+          {% if UserName %}
+            Welcome, {{UserName}}!
+          {% endif %}
+          </div> <br>
+
+          {% if Courses %}
+          <form action="" method="post">
+            <div>
+              Select Your Course <br>
+              <select id ="selectCourse" name="Course">
+                {% for Course in Courses %}
+                  <option value="{{Course[0]}} - {{Course[1]}} - {{Course[2]}}">{{Course[0]}} - {% if Course[1]%} {{Course[1]}} - {% endif %} {{Course[2]}}</option>
+                {% endfor %}
+              </select>
+            </div><br>
+
+            <div>
+              <button type="submit">Generate Report</button>
+            </div>
+          </form>
+
+          {% else %}
+            You are not assigned to any classes.
+          {% endif %}
+          <form method="get" action="/logout">
+                <button type="submit">logout</button>
+          </form> <br>
+            {% if message %}
+              {{message}}
+            {% endif %}
+    </body>
+ </html>

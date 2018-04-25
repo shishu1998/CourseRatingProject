@@ -1,7 +1,26 @@
 from utils import *
 from flask import Flask, render_template, request, url_for, redirect, session
+from functools import wraps
 app = Flask(__name__)
 app.secret_key = ''
+
+def checkLoggedIn(func):
+    @wraps(func)
+    def wrap():
+        if 'UserName' in session:
+            return func()
+        else:
+            return 'You are not logged in'
+    return wrap
+
+def checkIsProfessor(func):
+    @wraps(func)
+    def wrap():
+        if 'UserName' in session and GetUserType(session['UserName']) == 'Professor':
+            return func()
+        else:
+            return 'You are not allowed here'
+    return wrap
 
 @app.route('/', methods=['GET', 'POST'])
 def homepage():
@@ -10,22 +29,28 @@ def homepage():
         message = request.args['Message']
     if request.method == 'POST':
         if ValidateUser(request.form['UserName'], request.form['Password']):
-            session['UserName'] = request.form['UserName']
-            return redirect(url_for('homescreen'))
+            UserName = request.form['UserName']
+            session['UserName'] = UserName
+            if GetUserType(UserName) == 'Student':
+                return redirect(url_for('homescreen'))
+            else:
+                return redirect(url_for('report'))
         else:
             message = 'Invalid Credentials. Please try again.'
     return render_template('index.html', message=message)
 
 @app.route('/home')
+@checkLoggedIn
 def homescreen():
     return render_template('home.html')
-
+    
 @app.route('/logout')
 def logout():
     session.pop('UserName', None)
     return redirect(url_for('homepage', Message='Logged out successfully!'))
 
 @app.route('/rate', methods=['GET','POST'])
+@checkLoggedIn
 def rate():
     message = None
     UserName = session['UserName']
@@ -39,7 +64,7 @@ def rate():
         else:
             message = 'Please do not leave more than one rating per course!'
     return render_template('rate.html',UserName=UserName, Courses=GetCoursesByUsername(UserName), message=message)
-
+    
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     error = None
@@ -53,6 +78,7 @@ def register():
     return render_template('register.html', error=error)
 
 @app.route('/enroll', methods=['GET','POST'])
+@checkLoggedIn
 def enroll():
     message = None
     UserName = session['UserName']
@@ -65,3 +91,9 @@ def enroll():
             message = "Please make sure that you are providing a valid course code for a course that you're not enrolled in"
     return render_template('enroll.html',UserName=UserName, message=message)
 
+@app.route('/report', methods=['GET','POST'])
+@checkIsProfessor
+@checkLoggedIn
+def report():
+    UserName = session['UserName']
+    return render_template('report.html', Courses=GetCoursesByUsername(UserName))
