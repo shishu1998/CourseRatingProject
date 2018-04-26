@@ -100,6 +100,6 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE GetRatingsCount(IN Course VARCHAR(10), IN Section VARCHAR(2), IN Sem VARCHAR(20))
 BEGIN
-	SELECT Rating, Count(*) AS COUNT FROM RatingDataView WHERE CourseID=Course AND Semester = Sem AND SectionName = Section GROUP BY Rating;
+	SELECT Rating, Count(*) AS Count FROM RatingDataView WHERE CourseID=Course AND Semester = Sem AND SectionName = Section GROUP BY Rating;
 END //
 DELIMITER ;

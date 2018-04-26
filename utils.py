@@ -138,16 +138,37 @@ def GetRatingsCount(CourseID, Section, Semester):
         connection.close()
 
 def generateSpreadSheet(CourseID, Section, Semester):
-    data = GetRatings(CourseID, Section, Semester)
+    ratings = GetRatings(CourseID, Section, Semester)
+    ratingCount = GetRatingsCount(CourseID, Section, Semester)
     fileName='excel/' + CourseID + '-' + Section + '-' + Semester + '.xlsx'
     workbook = xlsxwriter.Workbook(fileName)
     worksheet = workbook.add_worksheet()
 
     worksheet.write('A1', 'Rating')
     worksheet.write('B1', 'Notes')
-    for i in range(0, len(data)):
-        worksheet.write('A%s'%(i+2), data[i]['Rating'])
-        worksheet.write('B%s'%(i+2), data[i]['Notes'])
+
+    ratingsColumnCount = len(ratings)+3
+    worksheet.write('A%s'%(ratingsColumnCount), 'Rating')
+    worksheet.write('B%s'%(ratingsColumnCount), 'Count')
+    ratingsColumnCount += 1
+
+    for i in range(0, len(ratings)):
+        worksheet.write('A%s'%(i+2), ratings[i]['Rating'])
+        worksheet.write('B%s'%(i+2), ratings[i]['Notes'])
+        
+    for i in range(0, len(ratingCount)):
+        worksheet.write('A%s'%(i+ratingsColumnCount), ratingCount[i]['Rating'])
+        worksheet.write('B%s'%(i+ratingsColumnCount), ratingCount[i]['Count'])
+
+    chart = workbook.add_chart({'type': 'column'})
+    chart.add_series({
+        'categories': '=Sheet1!$A$%s:$A$%s'%(ratingsColumnCount,ratingsColumnCount + len(ratingCount) -1),
+        'values': '=Sheet1!$B$%s:$B$%s'%(ratingsColumnCount,ratingsColumnCount + len(ratingCount) -1),
+        'name': 'Count vs Rating'
+    })
+
+    worksheet.insert_chart('A%s'%(ratingsColumnCount + len(ratingCount)), chart)
+    
     workbook.close()
 
 """
