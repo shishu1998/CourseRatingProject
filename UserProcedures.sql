@@ -7,6 +7,7 @@ DROP PROCEDURE IF EXISTS AddRating;
 DROP PROCEDURE IF EXISTS EnrollStudent;
 DROP PROCEDURE IF EXISTS GetUserType;
 DROP PROCEDURE IF EXISTS GetRatings;
+DROP PROCEDURE IF EXISTS GetRatingsCount;
 
 -- Returns the Courses that a User takes based on the UserID provided
 DELIMITER //
@@ -32,15 +33,6 @@ CREATE PROCEDURE GetUserType(IN UName VARCHAR(20))
 BEGIN
 	SELECT UserType FROM UserTypes JOIN Users USING (UserTypeID) WHERE UserName=UName;
 END //
-DELIMITER ;
-
--- Returns the Ratings that correspond to the given CourseID, SemesterID, and SectionName
-DELIMITER //
-CREATE PROCEDURE GetRatings(IN Course VARCHAR(10), IN Sem INT, IN Section VARCHAR(2))
- BEGIN
-	DECLARE IntID int;
-	SELECT Rating, Notes FROM Rating WHERE CourseID = Course AND SemesterID = Sem AND SectionName = Section;
- END //
 DELIMITER ;
 
 -- Creates a new Student with the given ID and name, returns true or false depends on if user already exists
@@ -93,5 +85,21 @@ BEGIN
 	ELSE
 		SET Success = false;
 	END IF;
+END //
+DELIMITER ;
+
+-- Gets all the ratings from a certain course section
+DELIMITER //
+CREATE PROCEDURE GetRatings(IN Course VARCHAR(10), IN Section VARCHAR(2), IN Sem VARCHAR(20))
+BEGIN
+	SELECT Rating, Notes FROM RatingDataView WHERE CourseID=Course AND Semester = Sem AND SectionName = Section;
+END //
+DELIMITER ;
+
+-- Gets count of each rating in a certain course section
+DELIMITER //
+CREATE PROCEDURE GetRatingsCount(IN Course VARCHAR(10), IN Section VARCHAR(2), IN Sem VARCHAR(20))
+BEGIN
+	SELECT Rating, Count(*) AS Count FROM RatingDataView WHERE CourseID=Course AND Semester = Sem AND SectionName = Section GROUP BY Rating ORDER BY FIELD(Rating, 'Very Good','Good', 'Average', 'Bad', 'Very Bad');
 END //
 DELIMITER ;
