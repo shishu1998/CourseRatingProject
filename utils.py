@@ -1,5 +1,6 @@
 import pymysql.cursors
 import hashlib
+import xlsxwriter
 
 #Connects to the database
 def DatabaseConnect():
@@ -136,6 +137,19 @@ def GetRatingsCount(CourseID, Section, Semester):
         connection.commit()
         connection.close()
 
+def generateSpreadSheet(CourseID, Section, Semester):
+    data = GetRatings(CourseID, Section, Semester)
+    fileName='excel/' + CourseID + '-' + Section + '-' + Semester + '.xlsx'
+    workbook = xlsxwriter.Workbook(fileName)
+    worksheet = workbook.add_worksheet()
+
+    worksheet.write('A1', 'Rating')
+    worksheet.write('B1', 'Notes')
+    for i in range(0, len(data)):
+        worksheet.write('A%s'%(i+2), data[i]['Rating'])
+        worksheet.write('B%s'%(i+2), data[i]['Notes'])
+    workbook.close()
+
 """
 print(ValidateUser('rc123','P@ssw0rd'))
 print(ValidateUser('rc123','lmao'))
@@ -149,5 +163,6 @@ print(AddRating("rc123", "CS-UY 2214", 1, "A", "Very Good", "GOOD CLASS!"))
 print (EnrollStudent('rc123','125ab465cffacce0b77c7b1a08af29b3'))
 print (GetUserType('ae285'))
 print (GetRatings('CS-UY 2214','A','Spring 2017'))
-"""
 print (GetRatingsCount('CS-UY 2214','A','Spring 2017'))
+generateSpreadSheet('CS-UY 2214','A','Spring 2017')
+"""

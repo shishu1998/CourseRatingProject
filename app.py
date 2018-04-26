@@ -1,8 +1,9 @@
 from utils import *
-from flask import Flask, render_template, request, url_for, redirect, session
+from flask import Flask, render_template, request, url_for, redirect, session, send_from_directory
 from functools import wraps
 app = Flask(__name__)
-app.secret_key = 'kappa'
+app.config['UPLOAD_FOLDER'] = 'excel/'
+app.secret_key = ''
 
 def checkLoggedIn(func):
     @wraps(func)
@@ -98,5 +99,7 @@ def report():
     UserName = session['UserName']
     if request.method == 'POST':
         CourseInfo = request.form['Course'].split(' - ')
-        return CourseInfo[2]
+        generateSpreadSheet(CourseInfo[0], CourseInfo[1], CourseInfo[2])
+        fileName= CourseInfo[0] + '-' + CourseInfo[1] + '-' + CourseInfo[2] + '.xlsx'
+        return send_from_directory(app.config['UPLOAD_FOLDER'], fileName, as_attachment=True)
     return render_template('report.html', Courses=GetCoursesByUsername(UserName))
