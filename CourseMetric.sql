@@ -66,3 +66,6 @@ CREATE VIEW Rating AS
 	SELECT UserHash, CourseID, SemesterID, SectionName, Rating, Notes
     FROM CourseRating
     WHERE Rating IN ('Very Good', 'Good', 'Average', 'Bad', 'Very Bad') WITH CHECK OPTION;
+    
+CREATE VIEW RatingDataView AS
+	SELECT CourseID, SectionName, Semester, Rating, Notes FROM rating JOIN semester USING(SemesterID);
