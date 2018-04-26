@@ -6,6 +6,8 @@ DROP PROCEDURE IF EXISTS RegisterStudent;
 DROP PROCEDURE IF EXISTS AddRating;
 DROP PROCEDURE IF EXISTS EnrollStudent;
 DROP PROCEDURE IF EXISTS GetUserType;
+DROP PROCEDURE IF EXISTS GetRatings;
+DROP PROCEDURE IF EXISTS GetRatingsCount;
 
 -- Returns the Courses that a User takes based on the UserID provided
 DELIMITER //
@@ -83,5 +85,21 @@ BEGIN
 	ELSE
 		SET Success = false;
 	END IF;
+END //
+DELIMITER ;
+
+-- Gets all the ratings from a certain course section
+DELIMITER //
+CREATE PROCEDURE GetRatings(IN Course VARCHAR(10), IN Section VARCHAR(2), IN Sem VARCHAR(20))
+BEGIN
+	SELECT Rating, Notes FROM RatingDataView WHERE CourseID=Course AND Semester = Sem AND SectionName = Section;
+END //
+DELIMITER ;
+
+-- Gets count of each rating in a certain course section
+DELIMITER //
+CREATE PROCEDURE GetRatingsCount(IN Course VARCHAR(10), IN Section VARCHAR(2), IN Sem VARCHAR(20))
+BEGIN
+	SELECT Rating, Count(*) AS COUNT FROM RatingDataView WHERE CourseID=Course AND Semester = Sem AND SectionName = Section GROUP BY Rating;
 END //
 DELIMITER ;

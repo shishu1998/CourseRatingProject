@@ -2,7 +2,7 @@ from utils import *
 from flask import Flask, render_template, request, url_for, redirect, session
 from functools import wraps
 app = Flask(__name__)
-app.secret_key = ''
+app.secret_key = 'kappa'
 
 def checkLoggedIn(func):
     @wraps(func)
@@ -96,4 +96,7 @@ def enroll():
 @checkLoggedIn
 def report():
     UserName = session['UserName']
+    if request.method == 'POST':
+        CourseInfo = request.form['Course'].split(' - ')
+        return CourseInfo[2]
     return render_template('report.html', Courses=GetCoursesByUsername(UserName))

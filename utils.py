@@ -112,6 +112,30 @@ def EnrollStudent(UName, CCode):
         connection.close()
         return success
 
+def GetRatings(CourseID, Section, Semester):
+    connection = DatabaseConnect()
+    try:
+        with connection.cursor() as cursor:
+            sql = "CALL GetRatings('" + CourseID + "', '" + Section + "', '" + Semester + "');"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            return result;
+    finally:
+        connection.commit()
+        connection.close()
+
+def GetRatingsCount(CourseID, Section, Semester):
+    connection = DatabaseConnect()
+    try:
+        with connection.cursor() as cursor:
+            sql = "CALL GetRatingsCount('" + CourseID + "', '" + Section + "', '" + Semester + "');"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            return result;
+    finally:
+        connection.commit()
+        connection.close()
+
 """
 print(ValidateUser('rc123','P@ssw0rd'))
 print(ValidateUser('rc123','lmao'))
@@ -124,4 +148,6 @@ print(RegisterStudent("noob123", "pronoob", "Noob"))
 print(AddRating("rc123", "CS-UY 2214", 1, "A", "Very Good", "GOOD CLASS!"))
 print (EnrollStudent('rc123','125ab465cffacce0b77c7b1a08af29b3'))
 print (GetUserType('ae285'))
+print (GetRatings('CS-UY 2214','A','Spring 2017'))
 """
+print (GetRatingsCount('CS-UY 2214','A','Spring 2017'))
