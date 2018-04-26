@@ -65,15 +65,27 @@ def GetSemesterID(semesterName):
 	finally:
 		connection.close()
 
-def GetRatings(CourseID, Sem, Section):
-	connection = DatabaseConnect()
-	try:
-		with connection.cursor() as cursor:
-			cursor.callproc("GetRatings", [CourseID, Sem, Section]);
-			result = list(map((lambda x: (x['Rating'],x['Notes'])), cursor.fetchall()))
-			return result
-	finally:
-		connection.close()
+def GetRatings(CourseID, Section, Semester):
+    connection = DatabaseConnect()
+    try:
+        with connection.cursor() as cursor:
+            sql = "CALL GetRatings('" + CourseID + "', '" + Section + "', '" + Semester + "');"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            return result;
+    finally:
+        connection.close()
+
+def GetRatingsCount(CourseID, Section, Semester):
+    connection = DatabaseConnect()
+    try:
+        with connection.cursor() as cursor:
+            sql = "CALL GetRatingsCount('" + CourseID + "', '" + Section + "', '" + Semester + "');"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            return result;
+    finally:
+        connection.close()
 
 def RegisterStudent(UName, PW, FName):
 	connection = DatabaseConnect()
@@ -121,6 +133,22 @@ def EnrollStudent(UName, CCode):
 		connection.commit()
 		connection.close()
 		return success
+
+def BuildReport(Values, Notes, RatingData, RatingCount):
+	i = 0
+	maxRatingCount = 0
+	numOfNotes = 0
+	for r in RatingCount:
+			if r['Count'] > maxRatingCount:
+				maxRatingCount = r['Count']
+			Values[i] = r['Count']
+			i += 1
+	for r in RatingData:
+		if len(r['Rating']):
+			Notes.append((r['Rating'], r['Notes']))
+			numOfNotes += 1
+	return (maxRatingCount, numOfNotes)	
+
 """
 print(ValidateUser('rc123','P@ssw0rd'))
 print(ValidateUser('rc123','lmao'))
@@ -132,6 +160,6 @@ print (GetSemesterID('Fall 2017'))
 print(RegisterStudent("noob123", "pronoob", "Noob"))
 print(AddRating("rc123", "CS-UY 2214", 1, "A", "Very Good", "GOOD CLASS!"))
 print (EnrollStudent('rc123','125ab465cffacce0b77c7b1a08af29b3'))
-print (GetUserType('ae285'))
-print(GetRatings("CS-UY 2214", 1, "A"))
+print (GetRatings('CS-UY 2214','A','Spring 2017'))
+print (GetRatingsCount('CS-UY 2214','A','Spring 2017'))
 """
