@@ -1,38 +1,88 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <Title> Course Rating Report </Title>
-    </head>
-    <body>
-          {% if UserName %}
-            Welcome, {{UserName}}!
-          {% endif %}
-          </div> <br>
+		<head>
+				<Title> Course Rating Report </Title>
+				<link rel="stylesheet" href="{{ url_for('static', filename='css/inputform.css') }}">
+				<link rel="stylesheet" href="{{ url_for('static', filename='css/report.css') }}">
+				<script src='static/js/Chart.min.js'></script>
+		</head>
+		<body>
+					{% if UserName %}
+						Welcome, {{UserName}}!
+					{% endif %}
+					</div> <br>
 
-          {% if Courses %}
-          <form action="" method="post">
-            <div>
-              Select Your Course <br>
-              <select id ="selectCourse" name="Course">
-                {% for Course in Courses %}
-                  <option value="{{Course[0]}} - {{Course[1]}} - {{Course[2]}}">{{Course[0]}} - {% if Course[1]%} {{Course[1]}} - {% endif %} {{Course[2]}}</option>
-                {% endfor %}
-              </select>
-            </div><br>
+					{% if Courses %}
+					<form action="" method="post">
+						<div>
+							Select Your Course <br>
+							<select id ="selectCourse" name="Course">
+								{% for Course in Courses %}
+									<option value="{{Course[0]}} - {{Course[1]}} - {{Course[2]}}">{{Course[0]}} - {% if Course[1]%} {{Course[1]}} - {% endif %} {{Course[2]}}</option>
+								{% endfor %}
+							</select>
+						</div><br>
 
-            <div>
-              <button type="submit">Generate Report</button>
-            </div>
-          </form>
+						<div>
+							<button type="submit">View Ratings</button>
+						</div>
+					</form>
+					{% else %}
+						You are not assigned to any classes.
+					{% endif %}
+					
+					 <form method="get" action="/logout">
+							<button type="submit">Logout</button>
+					</form> <br>
 
-          {% else %}
-            You are not assigned to any classes.
-          {% endif %}
-          <form method="get" action="/logout">
-                <button type="submit">logout</button>
-          </form> <br>
-            {% if message %}
-              {{message}}
-            {% endif %}
-    </body>
+					{% if showChart %}
+						<center><canvas id="chart" width="600" height="400"></canvas></center>
+						<script>
+							var barData = {
+							labels : [{% for item in labels %}
+													"{{item}}",
+												{% endfor %}],
+							datasets : [
+								{
+									fillColor: "rgba(255,255,255,1)",
+									strokeColor: "rgba(255,255,255,1)",
+									pointColor: "rgba(255,255,255,1)",
+									data : [{% for item in values %}
+														{{item}},
+													{% endfor %}]
+								}
+								]
+						 	}
+						 var barChart = document.getElementById("chart").getContext("2d");
+						 steps = 10
+						 max = {{maxValue}}
+
+						 new Chart(barChart).Bar(barData, {
+									scaleOverride: true,
+									scaleSteps: steps,
+									scaleStepWidth: Math.ceil(max / steps),
+									scaleStartValue: 0,
+									scaleShowVerticalLines: true,
+									scaleShowGridLines : true,
+									barShowStroke : true,
+									scaleShowLabels: true
+						 }); 
+					</script>
+				{% endif %}
+
+				{% if showNotes %}
+					<div id="noteContainer">
+						<h1>Notes</h1>
+						<div id="noteBox">
+							{% for note in notes %}
+								<p>Rating: {{ note[0] }}<br>{{ note[1] }}</p>
+							{% endfor %}
+						</div>
+					</div>
+				{% endif %}	
+
+				{% if message %}
+					{{message}}
+				{% endif %}
+		</body>
  </html>
