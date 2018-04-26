@@ -1,6 +1,7 @@
 from utils import *
 from flask import Flask, render_template, request, url_for, redirect, session
 from functools import wraps
+import math
 app = Flask(__name__)
 app.secret_key = 'super secret key'
 
@@ -96,9 +97,23 @@ def enroll():
 @checkLoggedIn
 def report():
 	message = None
+	showChart = False
+	showNotes = False
+	labels = ["Very Good", "Good", "Average", "Bad", "Very Bad"]
+	values = [0, 0, 0, 0, 0]
+	notes = []
+	maxValue = 10
+	numOfNotes = 0
 	UserName = session['UserName']
 	if request.method == 'POST':
 		CourseInfo = request.form['Course'].split(' - ')
-		ratingData = GetRatings(CourseInfo[0], GetSemesterID(CourseInfo[2]), CourseInfo[1]);
+		ratingData = GetRatings(CourseInfo[0], CourseInfo[1], CourseInfo[2]);
+		ratingCount = GetRatingsCount(CourseInfo[0], CourseInfo[1], CourseInfo[2]);
+		maxRatingCount, numOfNotes = BuildReport(values, notes, ratingData, ratingCount)
+		maxValue = int(math.ceil(maxRatingCount / 10.0)) * 10
+		if maxValue:
+			showChart = True
+		if numOfNotes:	
+			showNotes = True
 		message = str(len(ratingData)) + " rating(s) for the course: " + request.form['Course']
-	return render_template('report.html', Courses=GetCoursesByUsername(UserName), message=message)
+	return render_template('report.html', Courses=GetCoursesByUsername(UserName), message=message, values=values, labels=labels, maxValue=maxValue, notes=notes, showChart=showChart, showNotes=showNotes)
