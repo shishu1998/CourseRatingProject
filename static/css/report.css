@@ -1,0 +1,51 @@
+.login-page{
+    width: 1000px;
+}
+
+div#welcomeMsg{
+    font-size: 30px;
+}
+
+.form{
+    max-width: 1000px;
+}
+
+textarea {
+    height:auto;
+    max-width:650px;
+    font-weight:200;
+    font-size:14px;
+    font-family: "Roboto", sans-serif;
+    width:100%;
+    background:#fff;
+    line-height:3em;
+    border:groove;
+    box-shadow:0px 0px 5px 1px rgba(0,0,0,0.1);
+    padding:15px;
+}
+
+select#selectCourse{
+    border: 1px solid #AAA;
+    color: #555;
+    font-size: inherit;
+    margin: 20px;
+    overflow: hidden;
+    padding: 5px 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 300px;
+}
+
+input#submitButton, button{
+    width:25%;
+}
+
+div#noteContainer{
+    color: #FFF;
+    margin: auto;
+    width: 50%;
+}
+
+div#noteBox{
+    text-align: center;
+}
