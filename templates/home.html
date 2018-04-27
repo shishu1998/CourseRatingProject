@@ -8,6 +8,11 @@
       <div class="login-page">
         <div class="form">
           <form action="" method="get">
+		    <div id = "welcomeMsg">
+				{% if UserName %}
+					Welcome, {{UserName}}!
+				{% endif %}
+			</div> <br>
             <button type="submit" formaction="enroll">Enroll in a class</button><br><br>
             <button type="submit" formaction="rate">Rate a class</button><br><br>
             <button type="submit" formaction="logout">Log out</button><br><br>

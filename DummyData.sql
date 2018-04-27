@@ -34,6 +34,23 @@ INSERT INTO InCourse values
 ('CS-UY 2214', 'A', 1, 6),
 ('CS-UY 3083', '', 2, 5),
 ('CS-UY 3083', '', 2, 6);
+/*
+INSERT INTO CourseRating values
+('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef43a', 'CS-UY 2214', 1, 'A', 'Very Good', ' Very challanging and fun class!'),
+('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef43b', 'CS-UY 2214', 1, 'A', 'Very Good', ' Very challanging and fun class! I learn so much I think this professor is awesome and can teach so much. I am such a big nerd i love learning!'),
+('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef44a', 'CS-UY 2214', 1, 'A', 'Good', ' You will learn alot!'),
+('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef45a', 'CS-UY 2214', 1, 'A', 'Average', ' It is okay'),
+('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef46a', 'CS-UY 2214', 1, 'A', 'Bad', ' I almost failed'),
+('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef47a', 'CS-UY 2214', 1, 'A', 'Very Bad', ' I hate this class so much'),
+('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef48a', 'CS-UY 2214', 1, 'A', 'Very Bad', ' I barely learned anything'),
+('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef49a', 'CS-UY 2214', 1, 'B', 'Very Good', ' I love this class so much'),
+('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef37a', 'CS-UY 2214', 1, 'B', 'Average', ' Meh'),
+('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef27a', 'CS-UY 2214', 1, 'B', 'Very Bad', ' I hate this class'),
+('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef57a', 'CS-UY 3083', 2, '', 'Very Good', ' I love this class so much'),
+('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef67a', 'CS-UY 3083', 2, '', 'Very Bad', ' I hate this class so much'),
+('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef77a', 'CS-UY 2413', 1, 'A1', 'Good', ' Good class!'),
+('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef87a', 'CS-UY 2413', 1, 'A1', 'Average', ' Average class'),
+('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef97a', 'CS-UY 2413', 1, 'A1', 'Average', ' I could have learned more');
 
 -- Check that things have been inserted correctly
 /*
