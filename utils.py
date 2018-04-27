@@ -1,5 +1,6 @@
 import pymysql.cursors
 import hashlib
+import xlsxwriter
 
 #Connects to the database
 def DatabaseConnect():
@@ -112,6 +113,64 @@ def EnrollStudent(UName, CCode):
         connection.close()
         return success
 
+def GetRatings(CourseID, Section, Semester):
+    connection = DatabaseConnect()
+    try:
+        with connection.cursor() as cursor:
+            sql = "CALL GetRatings('" + CourseID + "', '" + Section + "', '" + Semester + "');"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            return result;
+    finally:
+        connection.commit()
+        connection.close()
+
+def GetRatingsCount(CourseID, Section, Semester):
+    connection = DatabaseConnect()
+    try:
+        with connection.cursor() as cursor:
+            sql = "CALL GetRatingsCount('" + CourseID + "', '" + Section + "', '" + Semester + "');"
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            return result;
+    finally:
+        connection.commit()
+        connection.close()
+
+def generateSpreadSheet(CourseID, Section, Semester):
+    ratings = GetRatings(CourseID, Section, Semester)
+    ratingCount = GetRatingsCount(CourseID, Section, Semester)
+    fileName='excel/' + CourseID + '-' + Section + '-' + Semester + '.xlsx'
+    workbook = xlsxwriter.Workbook(fileName)
+    worksheet = workbook.add_worksheet()
+
+    worksheet.write('A1', 'Rating')
+    worksheet.write('B1', 'Notes')
+
+    ratingsColumnCount = len(ratings)+3
+    worksheet.write('A%s'%(ratingsColumnCount), 'Rating')
+    worksheet.write('B%s'%(ratingsColumnCount), 'Count')
+    ratingsColumnCount += 1
+
+    for i in range(0, len(ratings)):
+        worksheet.write('A%s'%(i+2), ratings[i]['Rating'])
+        worksheet.write('B%s'%(i+2), ratings[i]['Notes'])
+        
+    for i in range(0, len(ratingCount)):
+        worksheet.write('A%s'%(i+ratingsColumnCount), ratingCount[i]['Rating'])
+        worksheet.write('B%s'%(i+ratingsColumnCount), ratingCount[i]['Count'])
+
+    chart = workbook.add_chart({'type': 'column'})
+    chart.add_series({
+        'categories': '=Sheet1!$A$%s:$A$%s'%(ratingsColumnCount,ratingsColumnCount + len(ratingCount) -1),
+        'values': '=Sheet1!$B$%s:$B$%s'%(ratingsColumnCount,ratingsColumnCount + len(ratingCount) -1),
+        'name': 'Count vs Rating'
+    })
+
+    worksheet.insert_chart('A%s'%(ratingsColumnCount + len(ratingCount)), chart)
+    
+    workbook.close()
+
 """
 print(ValidateUser('rc123','P@ssw0rd'))
 print(ValidateUser('rc123','lmao'))
@@ -124,4 +183,7 @@ print(RegisterStudent("noob123", "pronoob", "Noob"))
 print(AddRating("rc123", "CS-UY 2214", 1, "A", "Very Good", "GOOD CLASS!"))
 print (EnrollStudent('rc123','125ab465cffacce0b77c7b1a08af29b3'))
 print (GetUserType('ae285'))
+print (GetRatings('CS-UY 2214','A','Spring 2017'))
+print (GetRatingsCount('CS-UY 2214','A','Spring 2017'))
+generateSpreadSheet('CS-UY 2214','A','Spring 2017')
 """
