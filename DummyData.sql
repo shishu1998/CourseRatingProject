@@ -34,7 +34,7 @@ INSERT INTO InCourse values
 ('CS-UY 2214', 'A', 1, 6),
 ('CS-UY 3083', '', 2, 5),
 ('CS-UY 3083', '', 2, 6);
-/*
+
 INSERT INTO CourseRating values
 ('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef43a', 'CS-UY 2214', 1, 'A', 'Very Good', ' Very challanging and fun class!'),
 ('7ca28419b0ca4cd664faaab8122a4f76493441077f7f577e8844ae0701fef43b', 'CS-UY 2214', 1, 'A', 'Very Good', ' Very challanging and fun class! I learn so much I think this professor is awesome and can teach so much. I am such a big nerd i love learning!'),
