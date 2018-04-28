@@ -3,6 +3,10 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
+div#welcomeMsg{
+    font-size: 30px;
+}
+
 .login-page{
     width: 360px;
     padding: 8% 0 0;

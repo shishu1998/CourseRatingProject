@@ -11,7 +11,7 @@ def checkLoggedIn(func):
         if 'UserName' in session:
             return func()
         else:
-            return 'You are not logged in'
+            return render_template('notLoggedIn.html')
     return wrap
 
 def checkIsProfessor(func):
@@ -20,7 +20,7 @@ def checkIsProfessor(func):
         if 'UserName' in session and GetUserType(session['UserName']) == 'Professor':
             return func()
         else:
-            return 'You are not allowed here'
+            return render_template('notAllowedHere.html')
     return wrap
 
 @app.route('/', methods=['GET', 'POST'])
@@ -43,7 +43,8 @@ def homepage():
 @app.route('/home')
 @checkLoggedIn
 def homescreen():
-    return render_template('home.html')
+    UserName = session['UserName']
+    return render_template('home.html',UserName=UserName)
     
 @app.route('/logout')
 def logout():
@@ -102,4 +103,4 @@ def report():
         generateSpreadSheet(CourseInfo[0], CourseInfo[1], CourseInfo[2])
         fileName= CourseInfo[0] + '-' + CourseInfo[1] + '-' + CourseInfo[2] + '.xlsx'
         return send_from_directory(app.config['UPLOAD_FOLDER'], fileName, as_attachment=True)
-    return render_template('report.html', Courses=GetCoursesByUsername(UserName))
+    return render_template('report.html',UserName=UserName, Courses=GetCoursesByUsername(UserName))
